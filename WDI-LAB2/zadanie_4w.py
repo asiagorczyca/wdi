@@ -35,7 +35,7 @@ while abs(round(avg ** 2 - 2, 8)) > 0.0000001:
 
 """ 
 wiadomo, że dla wielomianu x^2-2=0 odległość jednego rozwiązania od osi y jest taka 
-sama jak odległośc durgiego roziwązania od osi y,
+sama jak odległośc drugiego rozwiązania od osi y,
 więc drugie rozwiązanie jest liczbą przeciwną do pierwszego rozwiązania
 
 """
