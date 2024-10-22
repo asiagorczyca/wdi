@@ -6,12 +6,18 @@ x^2-2=0
 """
 
 
+n = int(input("Podaj n: "))
+def f(x):
+    x=x**2-n
+    return x
+
 # funkcja sprawdza, czy dla danego x wartość funkcji f(x) jest dodatnia (prawda), czy ujemna (fałsz)
 def isPositive(x):
-    if x ** 2 - 2 > 0:
+    if f(x) > 0:
         return 1
     else:
         return 0
+
 
 
 # znalezienie liczb a i b takich, że f(a)<0 i f(b)>0
@@ -26,7 +32,7 @@ while not isPositive(b):
 
 avg = float(a + b) / 2.0
 
-while abs(round(avg ** 2 - 2, 8)) > 0.0000001:
+while abs(round(f(avg), 8)) > 0.0000001:
     if isPositive(avg):
         b = avg
     else:
