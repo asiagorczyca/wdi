@@ -1,5 +1,6 @@
 import itertools
 
+#
 sets = []
 input_copy = []
 
