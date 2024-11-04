@@ -7,34 +7,33 @@ nums = []
 # funkcja do sprawdzania, czy wszystkie cyfry każdej liczby są takie same
 # first - zbór cyfr pierwszej z liczb
 def is_the_same(first, numbers):
-    the_same = True
-    for number in numbers:
-        if set(list(number)) != first:
-            the_same = False
-    return the_same
+    return all(set(number) == first for number in numbers)
 
 
 # funkcja generuje propozycje liczb złożonych z takich samych cyfr jak wporadzona przez uzytkownika liczba
 def generate_alt_nums(number, num_of_alts):
-    # minimalny rozmiar liczby to 3, bo muszą być 3 różne liczby
-    size = max(len(number), 3)
     # cyfry, które mogą zostac użyte w liczbie
-    digits = set(list(number))
+    digits = set(number)
+    # liczba unikalnych cyfr
+    size = len(digits)
     # lista alternatywnych liczb
     alts = []
 
-    # sprawdzenie, czy kombinacja 3 cyfr z liczby nie jest tą samą liczbą i czy składa się ze wszystkich cyfr liczby wejściowej
-    # jeśli nie - jest to jedna z alternatyw
-    for combination in itertools.product(number, repeat=size):
-        new_alt = "".join(combination)
-        if set(combination) == digits and new_alt != number:
-            alts.append(new_alt)
+    if size > 1:
 
-    # ograniczenie liczby alternatyw do podanej liczby
-    alts = alts[:num_of_alts]
-    if not alts:
-        alts = ["Nie można stworzyć żadnych alternatyw"]
-    return alts
+        size = max(size, 3)
+        # sprawdzenie, czy kombinacja 3 cyfr z liczby nie jest tą samą liczbą i czy składa się ze wszystkich cyfr liczby wejściowej
+        # jeśli nie - jest to jedna z alternatyw
+        for combination in itertools.product(number, repeat=size):
+            new_alt = "".join(combination)
+            if set(combination) == digits and new_alt != number and new_alt not in alts:
+                alts.append(new_alt)
+            if len(alts) == num_of_alts:
+                break
+
+        return alts
+
+    return [list(digits)[0] * (len(number) + i) for i in range(1, num_of_alts + 1)]
 
 
 print("Podaj trzy liczby i oddziel je enterem: ")
@@ -48,7 +47,7 @@ while len(nums) < 3:
     except ValueError:
         print("Podano nieprawidłowe dane. Spróbuj jeszcze raz")
 
-if is_the_same(set(list(nums[0])), nums):
+if is_the_same(set(nums[0]), nums):
     print("Podane liczby składają się z tych samych cyfr")
 else:
     print("Podane liczby nie składają się z tych samych cyfr. \nAlternatywne opcje:")
