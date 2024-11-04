@@ -28,10 +28,12 @@ def generate_alt_nums(number, num_of_alts):
     for combination in itertools.product(number, repeat=size):
         new_alt = "".join(combination)
         if set(combination) == digits and new_alt != number:
-           alts.append(new_alt)
+            alts.append(new_alt)
 
     # ograniczenie liczby alternatyw do podanej liczby
     alts = alts[:num_of_alts]
+    if not alts:
+        alts = ["Nie można stworzyć żadnych alternatyw"]
     return alts
 
 
@@ -53,4 +55,4 @@ else:
     for number in nums:
         print(f"- Dla {number}: ")
         for alt in generate_alt_nums(number, 3):
-            print(f"\t-{alt}")
+            print(f"\t▪ {alt}")
