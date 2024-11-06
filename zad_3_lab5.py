@@ -1,5 +1,5 @@
 import itertools
-
+# add a case if the digit is a zero 
 # stworzenie tablicy, w której znajdują się całe liczby wprowadzone przez uzytkownika
 nums = []
 
