@@ -13,7 +13,7 @@ def replace(array, column, index):
 
 
 # Function for finding the determinant of a matrix.
-def getDet(mat, n):
+def det(mat, n):
     # Base case for 2x2 matrix
     if n == 2:
         return mat[0][0] * mat[1][1] - \
@@ -40,7 +40,7 @@ def getDet(mat, n):
 
         # Cofactor expansion
         sign = 1 if col % 2 == 0 else -1
-        res += sign * mat[0][col] * getDet(sub, n - 1)
+        res += sign * mat[0][col] * det(sub, n - 1)
 
     return res
 
@@ -85,14 +85,14 @@ for i in range(0, n):
 
     line += str(W[i][n - 1]) + chr(97 + n - 1) + " = " + str(S[i])
     print(line)
-det_main = int(getDet(W, n))
+det_main = int(det(W, n))
 print("Wyznacznik główny: ", det_main)
 
 dets = []
 
 for i in range(0, n):
     # dets.append(int(np.linalg.det(replace(W, S, i))))
-    dets.append(int(getDet(replace(W, S, i), n)))
+    dets.append(int(det(replace(W, S, i), n)))
 
 if det_main != 0:
     for i in range(0, n):
