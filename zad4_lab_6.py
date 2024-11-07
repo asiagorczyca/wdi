@@ -4,7 +4,6 @@ n = 0
 
 
 # funkcja która podmienia i-tą kolumnę na kolumnę z tablicy wyników równań
-# replace this function with a function from numpy lib
 def replace(array, column, index):
     new_array = [row[:] for row in array]
     for i in range(0, n):
@@ -12,42 +11,37 @@ def replace(array, column, index):
     return new_array
 
 
-# Function for finding the determinant of a matrix.
-def det(mat, n):
-    # Base case for 2x2 matrix
+# funkcja do usunięcia pierwszego rzędu i i-tej kolumny w macierzy
+def remove(array, column):
+    new_array = [row[:] for row in array]
+    del (new_array[0])
+    for row in new_array:
+        del (row[column])
+    return new_array
+
+
+# funkcja do wyliczenia wyznacznika macierzy
+def calculate_det(mat, n):
+    # przypadek dla macierzy 1x1
+    if n == 1:
+        return mat[0][0]
+    # przypadek dla macierzy 2x2
     if n == 2:
-        return mat[0][0] * mat[1][1] - \
-            mat[0][1] * mat[1][0]
+        return mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0]
 
-    # Recursive case for larger matrices
-    res = 0
-    for col in range(n):
+    det = 0
 
-        # Create a submatrix by removing the first
-        # row and the current column
-        sub = [[0] * (n - 1) for _ in range(n - 1)]
-        for i in range(1, n):
-            subcol = 0
-            for j in range(n):
+    for i in range(0, n):
+        det += (-1) ** i * mat[0][i] * calculate_det(remove(mat, i), n - 1)
 
-                # Skip the current column
-                if j == col:
-                    continue
-
-                # Fill the submatrix
-                sub[i - 1][subcol] = mat[i][j]
-                subcol += 1
-
-        # Cofactor expansion
-        sign = 1 if col % 2 == 0 else -1
-        res += sign * mat[0][col] * det(sub, n - 1)
-
-    return res
+    return det
 
 
-while n < 2:
+while n < 1:
     try:
-        n = int(input("Podaj liczbę niewiadomych w układzie równań (musi być większa od 1) "))
+        n = int(input("Podaj liczbę niewiadomych w układzie równań "))
+        if n < 1:
+            print("Podana liczba musi być większa lub równa 1. Spróbuj jeszcze raz")
     except ValueError:
         print("Podano nieprawidłową liczbę. Spróbuj jeszcze raz")
 
@@ -85,14 +79,13 @@ for i in range(0, n):
 
     line += str(W[i][n - 1]) + chr(97 + n - 1) + " = " + str(S[i])
     print(line)
-det_main = int(det(W, n))
+det_main = int(calculate_det(W, n))
 print("Wyznacznik główny: ", det_main)
 
 dets = []
 
 for i in range(0, n):
-    # dets.append(int(np.linalg.det(replace(W, S, i))))
-    dets.append(int(det(replace(W, S, i), n)))
+    dets.append(int(calculate_det(replace(W, S, i), n)))
 
 if det_main != 0:
     for i in range(0, n):
