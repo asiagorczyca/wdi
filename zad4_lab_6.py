@@ -1,5 +1,4 @@
 from random import randint
-import numpy as np
 
 n = 0
 
@@ -11,6 +10,39 @@ def replace(array, column, index):
     for i in range(0, n):
         new_array[i][index] = column[i]
     return new_array
+
+
+# Function for finding the determinant of a matrix.
+def getDet(mat, n):
+    # Base case for 2x2 matrix
+    if n == 2:
+        return mat[0][0] * mat[1][1] - \
+            mat[0][1] * mat[1][0]
+
+    # Recursive case for larger matrices
+    res = 0
+    for col in range(n):
+
+        # Create a submatrix by removing the first
+        # row and the current column
+        sub = [[0] * (n - 1) for _ in range(n - 1)]
+        for i in range(1, n):
+            subcol = 0
+            for j in range(n):
+
+                # Skip the current column
+                if j == col:
+                    continue
+
+                # Fill the submatrix
+                sub[i - 1][subcol] = mat[i][j]
+                subcol += 1
+
+        # Cofactor expansion
+        sign = 1 if col % 2 == 0 else -1
+        res += sign * mat[0][col] * getDet(sub, n - 1)
+
+    return res
 
 
 while n < 2:
@@ -53,13 +85,14 @@ for i in range(0, n):
 
     line += str(W[i][n - 1]) + chr(97 + n - 1) + " = " + str(S[i])
     print(line)
-det_main = int(np.linalg.det(W))
+det_main = int(getDet(W, n))
 print("Wyznacznik główny: ", det_main)
 
 dets = []
 
 for i in range(0, n):
-    dets.append(int(np.linalg.det(replace(W, S, i))))
+    # dets.append(int(np.linalg.det(replace(W, S, i))))
+    dets.append(int(getDet(replace(W, S, i), n)))
 
 if det_main != 0:
     for i in range(0, n):
