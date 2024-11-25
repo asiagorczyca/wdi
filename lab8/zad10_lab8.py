@@ -19,7 +19,7 @@ def file_pick():
     while True:
         try:
             filenum = int(input("Podaj numer pliku: ")) - 1
-            if 0 <= filenum <= len(textfiles):
+            if 0 <= filenum < len(textfiles):
                 break
             else:
                 print("Plik o podanym numerze nie istnieje")
@@ -32,6 +32,6 @@ def file_pick():
 
 
 text = file_pick()
-count = num_of_occurrences(r"\.", text)
+count = num_of_occurrences(r"\b\w+", text)
 
-print(f"Liczba zdań: {count}")
+print(f"Liczba słów: {count}")
