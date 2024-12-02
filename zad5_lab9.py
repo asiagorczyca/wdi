@@ -96,3 +96,39 @@ print("Współczynnik c: ")
 num3 = num_input()
 
 solve(num1, num2, num3)
+
+# Testy funkcji solve
+
+# Delta = 0 i brak części urojonej
+# x^2 + 2x + 1 = 0
+# a = 1 + 0i
+# b = 2 + 0i
+# c = 1 + 0i
+
+# część urojona
+# (3i)x^2 + (4i)x + 1i = 0
+# a = 0 + 3i
+# b = 0 + 4i
+# c = 0 + 1i
+
+# część urojona i rzeczywista
+# (1+2i)x^2 + (2+3i)x + (1+1i) = 0
+# a = 1 + 2i
+# b = 2 + 3i
+# c = 1 + 1i
+
+# część rzeczywista, urojona i delta = 0
+# x^2 + (2i)x - 1 = 0
+# a = 1 + 0i
+# b = 0 + 2i
+# c = -1 + 0i
+
+# delta < 0 i wspołczynniki rzeczywiste
+# x^2 + 2x + 5 = 0
+# a = 1 + 0i
+# b = 2 + 0i
+# c = 5 + 0i
+
+
+
+
