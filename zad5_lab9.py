@@ -84,7 +84,7 @@ def solve(a, b, c):
         print(f"x2 = {display(x2)}")
     else:
         x = divide(multiply(b, -1), multiply(a, 2))
-        print(f"x= {display(x)}")
+        print(f"x = {display(x)}")
 
 print("Program rozwiązuje równanie kwadratowe ze wspołczynnikami zespolonymi w postaci ax^2+bx+c=0")
 print("Wszystkie współczynniki są w postaci x+yi, gdzie x to część rzeczywista liczby, a y to część urojona")
