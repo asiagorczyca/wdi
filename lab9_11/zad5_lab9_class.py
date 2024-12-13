@@ -3,6 +3,11 @@ class Complexnum:
         self.real = real
         self.imag = imag
 
+    def __eq__(self, other):
+        if isinstance(other, Complexnum):
+            return abs(self.real - other.real) < 1e-9 and abs(self.imag - other.imag) < 1e-9
+        return False
+
     def display(self):
         if self.real != 0 and self.imag != 0:
             return f"{self.real} + {self.imag}i"
@@ -60,63 +65,32 @@ class Complexnum:
 
         return Complexnum(real, imag)
 
+    @staticmethod
+    def solve(a, b, c):
+        delta = b.exp(2).subtract(a.multiply(c).multiply(4))
+        print("Rozwiązania:")
+        if delta.real != 0 or delta.imag != 0:
+            x1 = b.multiply(-1).add(delta.find_root()).divide(a.multiply(2))
+            x2 = b.multiply(-1).subtract(delta.find_root()).divide(a.multiply(2))
+            print(f"x1 = {x1.display()}")
+            print(f"x2 = {x2.display()}")
+        else:
+            x = b.multiply(-1).divide(a.multiply(2))
+            print(f"x = {x.display()}")
 
-def solve(a, b, c):
-    delta = Complexnum.subtract(Complexnum.exp(b, 2),
-                                    Complexnum.multiply(Complexnum.multiply(a, c), 4))
-    print("Rozwiązania:")
-    if delta.real != 0 or delta.imag != 0:
-        x1 = Complexnum.divide(Complexnum.add(Complexnum.multiply(b, -1), Complexnum.find_root(delta)),
-                                   Complexnum.multiply(a, 2))
-        x2 = Complexnum.divide(
-            Complexnum.subtract(Complexnum.multiply(b, -1), Complexnum.find_root(delta)),
-            Complexnum.multiply(a, 2))
-        print(f"x1 = {x1.display()}")
-        print(f"x2 = {x2.display()}")
-    else:
-        x = Complexnum.divide(Complexnum.multiply(b, -1), Complexnum.multiply(a, 2))
-        print(f"x = {x.display()}")
+def main():
+    print(Complexnum(1, 0).find_root().display())
+    print("Program rozwiązuje równanie kwadratowe ze wspołczynnikami zespolonymi w postaci ax^2+bx+c=0")
+    print("Wszystkie współczynniki są w postaci x+yi, gdzie x to część rzeczywista liczby, a y to część urojona")
+    print("Współczynnik a: ")
+    num1 = Complexnum.input_num()
+    print("Współczynnik b: ")
+    num2 = Complexnum.input_num()
+    print("Współczynnik c: ")
+    num3 = Complexnum.input_num()
 
+    Complexnum.solve(num1, num2, num3)
+    return 0
 
-print("Program rozwiązuje równanie kwadratowe ze wspołczynnikami zespolonymi w postaci ax^2+bx+c=0")
-print("Wszystkie współczynniki są w postaci x+yi, gdzie x to część rzeczywista liczby, a y to część urojona")
-print("Współczynnik a: ")
-num1 = Complexnum.input_num()
-print("Współczynnik b: ")
-num2 = Complexnum.input_num()
-print("Współczynnik c: ")
-num3 = Complexnum.input_num()
-
-solve(num1, num2, num3)
-
-# Testy funkcji solve
-
-# Delta = 0 i brak części urojonej
-# x^2 + 2x + 1 = 0
-# a = 1 + 0i
-# b = 2 + 0i
-# c = 1 + 0i
-
-# część urojona
-# (3i)x^2 + (4i)x + 1i = 0
-# a = 0 + 3i
-# b = 0 + 4i
-# c = 0 + 1i
-
-# część urojona i rzeczywista
-# (1+2i)x^2 + (2+3i)x + (1+1i) = 0
-# a = 1 + 2i
-# b = 2 + 3i
-# c = 1 + 1i
-
-# część rzeczywista, urojona i delta = 0
-# x^2 + (2i)x - 1 = 0
-# a = 1 + 0i
-# b = 0 + 2i
-# c = -1 + 0i
-
-# delta < 0 i wspołczynniki rzeczywiste
-# x^2 + 2x + 5 = 0
-# a = 1 + 0i
-# b = 2 + 0i
-# c = 5 + 0i
+if __name__ == '__main__':
+    main()
