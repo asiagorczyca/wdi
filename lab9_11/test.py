@@ -31,6 +31,8 @@ def test_divide():
     assert Complexnum(1, 1).divide(Complexnum(1, 1)) == Complexnum(1, 0)
     assert Complexnum(1, 1).divide(Complexnum(-1, -1)) == Complexnum(-1, 0)
     assert Complexnum(1, 1).divide(Complexnum(0, 1)) == Complexnum(1, -1)
+    with pytest.raises(ZeroDivisionError):
+        Complexnum(1, 1).divide(Complexnum(0, 0))
 
 def test_exp():
     assert Complexnum(1, 1).exp(0) == 1

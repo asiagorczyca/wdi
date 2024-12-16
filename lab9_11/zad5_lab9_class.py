@@ -29,6 +29,8 @@ class Complexnum:
                           self.real * other.imag + other.real * self.imag)
 
     def divide(self, other):
+        if other.real == 0 and other.imag == 0:
+            raise ZeroDivisionError
         return Complexnum((self.real * other.real + self.imag * other.imag) / (other.real ** 2 + other.imag ** 2),
                           (self.imag * other.real - self.real * other.imag) / (other.real ** 2 + other.imag ** 2))
 
